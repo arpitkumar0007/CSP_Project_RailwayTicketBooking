@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Common CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    
+</head>
+
+<body>
+    <nav>
+        <div class="logo" data-aos="fade-down" data-aos-duration="1000">
+            RailwayYatri
+        </div>
+        <div class="links">
+            <a href="#" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100">Home</a>
+            <a href="booktickets.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Book
+                Tickets</a>
+            <a href="findtrains.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">Find Trains</a>
+            <a href="pnrstatus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400">PNR Status</a>
+            <a href="feedback.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">Feedback</a>
+            <a href="contactus.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Contact Us</a>
+        </div>
+        <div class="buttons">
+            <button data-aos="fade-down" data-aos-duration="1000" data-aos-delay="700">Login</button>
+            <button data-aos="fade-down" data-aos-duration="1000" data-aos-delay="800">Sign up</button>
+        </div>
+    </nav>
+
+    <section>
+        <div class="content">
+            <h1 data-aos="fade-up" data-aos-duration="1200">Your Safe Travel Journey<br>Is Our Main Goal</h1>
+            <p data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">Experience seamless train travel booking
+                with RailwayYatri. Your comfort and safety are our top priorities.</p>
+            <button data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600">
+                <a href="booktickets.php">Book Your Journey</a>
+            </button>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
