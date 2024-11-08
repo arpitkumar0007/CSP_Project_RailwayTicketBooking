@@ -328,3 +328,131 @@ if (isset($_POST['book_ticket'])) {
     </form>
 </div>
             <?php endforeach; ?>
+            <?php endif; ?>
+
+        <?php if (isset($_POST['show_booking_form'])): ?>
+            <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Passenger Details</h2>
+            <form method="POST">
+                <input type="hidden" name="train_number" value="<?php echo htmlspecialchars($_POST['train_number']); ?>">
+                <input type="hidden" name="from_station" value="<?php echo htmlspecialchars($_POST['from_station']); ?>">
+                <input type="hidden" name="to_station" value="<?php echo htmlspecialchars($_POST['to_station']); ?>">
+                <input type="hidden" name="journey_date" value="<?php echo htmlspecialchars($_POST['journey_date']); ?>">
+                <input type="hidden" name="class" value="<?php echo htmlspecialchars($_POST['class']); ?>">
+                <input type="hidden" name="fare" value="<?php echo htmlspecialchars($_POST['fare']); ?>">
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Passenger Name</label>
+                        <input type="text" name="passenger_name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" class="form-control" required min="1" max="120">
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Berth Preference</label>
+                        <select name="berth_preference" class="form-control" required>
+                            <option value="Lower">Lower Berth</option>
+                            <option value="Middle">Middle Berth</option>
+                            <option value="Upper">Upper Berth</option>
+                            <option value="Side Lower">Side Lower</option>
+                            <option value="Side Upper">Side Upper</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group">
+                    <label>Document Type</label>
+                    <select name="document_type" class="form-control" required>
+                            <option value="Aadhar">Aadhar Card</option>
+                            <option value="PAN">PAN Card</option>
+                            <option value="Passport">Passport</option>
+                            <option value="Driving License">Driving License</option>
+                            <option value="Voter ID">Voter ID</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Document Number</label>
+                        <input type="text" name="document_number" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Fare</label>
+                    <input type="text" value="₹<?php echo htmlspecialchars($_POST['fare']); ?>" class="form-control" readonly>
+                </div>
+
+                <button type="submit" name="book_ticket" class="btn">Confirm Booking</button>
+            </form>
+        <?php endif; ?>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out'
+        });
+
+        // Disable past dates in the journey date picker
+        const journeyDateInput = document.querySelector('input[name="journey_date"]');
+        if (journeyDateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            journeyDateInput.setAttribute('min', today);
+            
+            // Set max date to 4 months from today
+            const maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 4);
+            journeyDateInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
+        }
+
+        // Validate age input
+        const ageInput = document.querySelector('input[name="age"]');
+        if (ageInput) {
+            ageInput.addEventListener('input', function() {
+                if (this.value < 1) this.value = 1;
+                if (this.value > 120) this.value = 120;
+            });
+        }
+
+        // Form validation
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'red';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<?php
+$conn->close();
+?>
