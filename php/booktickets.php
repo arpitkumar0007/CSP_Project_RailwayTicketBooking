@@ -230,4 +230,229 @@ if (isset($_POST['book_ticket'])) {
         }
     }
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets - RailwayYatri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+    <div class="container">
+    <?php if ($booking_success): ?>
+    <div class="success-message">
+        <h2>Booking Successful!</h2>
+        <div class="booking-details">
+            <p><strong>PNR Number:</strong> <?php echo htmlspecialchars($generated_pnr); ?></p>
+            <p><strong>Coach:</strong> <?php echo htmlspecialchars($generated_seat['coach']); ?></p>
+            <p><strong>Seat Number:</strong> <?php echo htmlspecialchars($generated_seat['berth_type'] . $generated_seat['seat_number']); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+        <?php if (!$search_performed && !$booking_success): ?>
+            <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Search Trains</h2>
+            <form method="POST">
+                <div class="grid">
+                    <div class="form-group">
+                        <label>From Station</label>
+                        <select name="from_station" class="form-control" required>
+                            <option value="">Select Departure Station</option>
+                            <?php foreach ($stations as $station): ?>
+                                <option value="<?php echo htmlspecialchars($station); ?>">
+                                    <?php echo htmlspecialchars($station); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>To Station</label>
+                        <select name="to_station" class="form-control" required>
+                            <option value="">Select Arrival Station</option>
+                            <?php foreach ($stations as $station): ?>
+                                <option value="<?php echo htmlspecialchars($station); ?>">
+                                    <?php echo htmlspecialchars($station); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Journey Date</label>
+                        <input type="date" name="journey_date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                    <label>Class</label>
+                        <select name="class" class="form-control" required>
+                            <option value="1A">First AC (1A)</option>
+                            <option value="2A">Second AC (2A)</option>
+                            <option value="3A">Third AC (3A)</option>
+                            <option value="SL">Sleeper (SL)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" name="search_trains" class="btn">Search Trains</button>
+            </form>
+        <?php endif; ?>
+
+        <?php if ($search_performed && !isset($_POST['show_booking_form'])): ?>
+            <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Available Trains</h2>
+            <?php foreach ($search_results as $train): ?>
+                <div class="train-card">
+    <h3><?php echo htmlspecialchars($train['train_name']); ?> (<?php echo htmlspecialchars($train['train_number']); ?>)</h3>
+    <div class="grid" style="margin: 1rem 0;">
+        <div>
+            <p>Departure: <?php echo date('h:i A', strtotime($train['departure_time'])); ?></p>
+            <p>Arrival: <?php echo date('h:i A', strtotime($train['arrival_time'])); ?></p>
+        </div>
+        <div>
+            <p>Duration: <?php 
+                $duration = new DateTime($train['duration_calc']);
+                echo $duration->format('H:i'); ?> hrs</p>
+            <p>Type: <?php echo htmlspecialchars($train['train_type']); ?></p>
+        </div>
+    </div>
+    <div class="fare-details">
+        <p>Fare: ₹<?php echo number_format($train['selected_fare'], 2); ?></p>
+    </div>
+    <form method="POST" class="booking-form">
+        <input type="hidden" name="train_number" value="<?php echo htmlspecialchars($train['train_number']); ?>">
+        <input type="hidden" name="from_station" value="<?php echo htmlspecialchars($_POST['from_station']); ?>">
+        <input type="hidden" name="to_station" value="<?php echo htmlspecialchars($_POST['to_station']); ?>">
+        <input type="hidden" name="journey_date" value="<?php echo htmlspecialchars($_POST['journey_date']); ?>">
+        <input type="hidden" name="class" value="<?php echo htmlspecialchars($_POST['class']); ?>">
+        <input type="hidden" name="fare" value="<?php echo htmlspecialchars($train['selected_fare']); ?>">
+        <button type="submit" name="show_booking_form" class="btn">Book Now</button>
+    </form>
+</div>
+            <?php endforeach; ?>
+            <?php endif; ?>
+
+        <?php if (isset($_POST['show_booking_form'])): ?>
+            <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Passenger Details</h2>
+            <form method="POST">
+                <input type="hidden" name="train_number" value="<?php echo htmlspecialchars($_POST['train_number']); ?>">
+                <input type="hidden" name="from_station" value="<?php echo htmlspecialchars($_POST['from_station']); ?>">
+                <input type="hidden" name="to_station" value="<?php echo htmlspecialchars($_POST['to_station']); ?>">
+                <input type="hidden" name="journey_date" value="<?php echo htmlspecialchars($_POST['journey_date']); ?>">
+                <input type="hidden" name="class" value="<?php echo htmlspecialchars($_POST['class']); ?>">
+                <input type="hidden" name="fare" value="<?php echo htmlspecialchars($_POST['fare']); ?>">
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Passenger Name</label>
+                        <input type="text" name="passenger_name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" class="form-control" required min="1" max="120">
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Berth Preference</label>
+                        <select name="berth_preference" class="form-control" required>
+                            <option value="Lower">Lower Berth</option>
+                            <option value="Middle">Middle Berth</option>
+                            <option value="Upper">Upper Berth</option>
+                            <option value="Side Lower">Side Lower</option>
+                            <option value="Side Upper">Side Upper</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group">
+                    <label>Document Type</label>
+                    <select name="document_type" class="form-control" required>
+                            <option value="Aadhar">Aadhar Card</option>
+                            <option value="PAN">PAN Card</option>
+                            <option value="Passport">Passport</option>
+                            <option value="Driving License">Driving License</option>
+                            <option value="Voter ID">Voter ID</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Document Number</label>
+                        <input type="text" name="document_number" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Fare</label>
+                    <input type="text" value="₹<?php echo htmlspecialchars($_POST['fare']); ?>" class="form-control" readonly>
+                </div>
+
+                <button type="submit" name="book_ticket" class="btn">Confirm Booking</button>
+            </form>
+        <?php endif; ?>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out'
+        });
+
+        // Disable past dates in the journey date picker
+        const journeyDateInput = document.querySelector('input[name="journey_date"]');
+        if (journeyDateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            journeyDateInput.setAttribute('min', today);
+            
+            // Set max date to 4 months from today
+            const maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 4);
+            journeyDateInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
+        }
+
+        // Validate age input
+        const ageInput = document.querySelector('input[name="age"]');
+        if (ageInput) {
+            ageInput.addEventListener('input', function() {
+                if (this.value < 1) this.value = 1;
+                if (this.value > 120) this.value = 120;
+            });
+        }
+
+        // Form validation
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'red';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<?php
+$conn->close();
 ?>
