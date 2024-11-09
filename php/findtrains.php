@@ -313,4 +313,75 @@ if (isset($_POST['book_ticket'])) {
                 Search Trains
             </button>
         </form>
-        </html>
+        <?php if ($search_performed): ?>
+    <?php if (empty($search_results)): ?>
+        <div class="train-card">
+            <div class="train-header">
+                <div class="train-name">No trains found</div>
+            </div>
+            <p>No trains available for the selected route and date. Please try different dates or stations.</p>
+        </div>
+    <?php else: ?>
+        <?php foreach ($search_results as $train): ?>
+            <div class="train-card">
+                <div class="train-header">
+                    <div class="train-name"><?php echo htmlspecialchars($train['train_name']); ?> (<?php echo htmlspecialchars($train['train_number']); ?>)</div>
+                    <div class="train-type"><?php echo htmlspecialchars($train['train_type']); ?></div>
+                </div>
+
+                <div class="train-info">
+                    <div class="info-group">
+                        <i class="fas fa-clock info-icon"></i>
+                        <div class="info-details">
+                            <span class="info-label">Departure</span>
+                            <span class="info-value"><?php echo date('H:i', strtotime($train['departure_time'])); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <i class="fas fa-clock info-icon"></i>
+                        <div class="info-details">
+                            <span class="info-label">Arrival</span>
+                            <span class="info-value"><?php echo date('H:i', strtotime($train['arrival_time'])); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <i class="fas fa-hourglass-half info-icon"></i>
+                        <div class="info-details">
+                            <span class="info-label">Duration</span>
+                            <span class="info-value"><?php echo $train['duration_calc']; ?></span>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <i class="fas fa-indian-rupee-sign info-icon"></i>
+                        <div class="info-details">
+                            <span class="info-label">Fare</span>
+                            <span class="info-value">₹<?php echo number_format($train['selected_fare'], 2); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" style="display: inline;">
+                    <input type="hidden" name="train_number" value="<?php echo htmlspecialchars($train['train_number']); ?>">
+                    <input type="hidden" name="from_station" value="<?php echo htmlspecialchars($train['from_station']); ?>">
+                    <input type="hidden" name="to_station" value="<?php echo htmlspecialchars($train['to_station']); ?>">
+                    <input type="hidden" name="journey_date" value="<?php echo htmlspecialchars($_POST['journey_date']); ?>">
+                    <input type="hidden" name="class" value="<?php echo htmlspecialchars($_POST['class']); ?>">
+                    <input type="hidden" name="fare" value="<?php echo htmlspecialchars($train['selected_fare']); ?>">
+                    
+                    <button type="button" class="btn" onclick="window.location.href='booking.php?train=<?php echo urlencode($train['train_number']); ?>&class=<?php echo urlencode($_POST['class']); ?>&date=<?php echo urlencode($_POST['journey_date']); ?>&from=<?php echo urlencode($train['from_station']); ?>&to=<?php echo urlencode($train['to_station']); ?>&fare=<?php echo urlencode($train['selected_fare']); ?>'">
+                        <i class="fas fa-ticket"></i>
+                        Book Now
+                    </button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php
+// Close database connection
+$conn->close();
+?>
