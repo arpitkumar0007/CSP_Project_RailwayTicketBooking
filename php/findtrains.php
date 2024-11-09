@@ -381,6 +381,43 @@ if (isset($_POST['book_ticket'])) {
     <?php endif; ?>
 <?php endif; ?>
 
+
+<script>
+        // Initialize date restrictions
+        const journeyDateInput = document.querySelector('#journey_date');
+        if (journeyDateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            journeyDateInput.setAttribute('min', today);
+            
+            const maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 4);
+            journeyDateInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
+        }
+
+        // Form validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('error');
+                    } else {
+                        field.classList.remove('error');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 <?php
 // Close database connection
 $conn->close();
