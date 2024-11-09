@@ -244,3 +244,73 @@ if (isset($_POST['book_ticket'])) {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailwayYatri - Modern Booking Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>RailwayYatri</h1>
+            <p>Book your journey with comfort and ease</p>
+        </header>
+
+        <form class="search-form" method="POST">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="from_station">From Station</label>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <select name="from_station" id="from_station" class="form-control" required>
+                        <option value="">Select departure station</option>
+                        <?php foreach ($stations as $station): ?>
+                        <option value="<?php echo htmlspecialchars($station); ?>" 
+                                <?php echo (isset($_POST['from_station']) && $_POST['from_station'] == $station) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($station); ?>
+                        </option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="to_station">To Station</label>
+                    <i class="fas fa-map-marker"></i>
+                    <select name="to_station" id="to_station" class="form-control" required>
+                        <option value="">Select arrival station</option>
+                        <?php foreach ($stations as $station): ?>
+                        <option value="<?php echo htmlspecialchars($station); ?>"
+                                <?php echo (isset($_POST['to_station']) && $_POST['to_station'] == $station) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($station); ?>
+                        </option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="journey_date">Journey Date</label>
+                    <i class="fas fa-calendar"></i>
+                    <input type="date" name="journey_date" id="journey_date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <i class="fas fa-train"></i>
+                    <select name="class" id="class" class="form-control" required>
+                        <option value="1A">First AC (1A)</option>
+                        <option value="2A">Second AC (2A)</option>
+                        <option value="3A">Third AC (3A)</option>
+                        <option value="SL">Sleeper (SL)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" name="search_trains" class="btn">
+                <i class="fas fa-search"></i>
+                Search Trains
+            </button>
+        </form>
+        </html>
