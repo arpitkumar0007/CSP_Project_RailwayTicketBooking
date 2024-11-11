@@ -133,5 +133,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php if ($search_performed && $booking_details): ?>
     
+        <div class="results-container">
+        <div class="booking-card" data-aos="fade-up">
+            <div class="booking-header">
+                <div>
+                    <h3>PNR: <?php echo htmlspecialchars($booking_details['pnr_number']); ?></h3>
+                    <p>Train Number: <?php echo htmlspecialchars($booking_details['train_number']); ?></p>
+                </div>
+                <div>
+                    <span class="status-badge">CONFIRMED</span>
+                </div>
+            </div>
+
+            <div class="booking-details">
+                <div class="detail-group">
+                    <div class="detail-label">Passenger Name</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['passenger_name']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Age/Gender</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['age']) . '/' . htmlspecialchars($booking_details['gender']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Journey Date</div>
+                    <div class="detail-value"><?php echo date('d M Y', strtotime($booking_details['journey_date'])); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Booking Date</div>
+                    <div class="detail-value"><?php echo date('d M Y', strtotime($booking_details['booking_date'])); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Class</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['class']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">From</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['from_station']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">To</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['to_station']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Coach/Seat</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['allocated_seat']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Document Type</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['document_type']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Document Number</div>
+                    <div class="detail-value"><?php echo htmlspecialchars($booking_details['document_number']); ?></div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Fare</div>
+                    <div class="detail-value">₹<?php echo htmlspecialchars($booking_details['fare']); ?></div>
+                </div>
+            </div>
+        </div>
+        <a href="pnrstatus.php" class="new-search-btn">Check Another PNR</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
