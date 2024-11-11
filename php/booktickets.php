@@ -230,6 +230,7 @@ if (isset($_POST['book_ticket'])) {
         }
     }
 }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -237,8 +238,28 @@ if (isset($_POST['book_ticket'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Tickets - RailwayYatri</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="./css/booktickets.css">
+    <link rel="stylesheet" href="./css/common.css">
 </head>
 <body>
+<nav>
+        <div class="logo" data-aos="fade-down" data-aos-duration="1000">
+            RailwayYatri
+        </div>
+        <div class="links">
+            <a href="./index.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100">Home</a>
+            <a href="booktickets.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Book
+                Tickets</a>
+            <a href="findtrains.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">Find Trains</a>
+            <a href="pnrstatus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400">PNR Status</a>
+            <a href="feedback.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">Feedback</a>
+            <a href="contactus.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Contact Us</a>
+        </div>
+        <div class="buttons">
+            <button data-aos="fade-down" data-aos-duration="1000" data-aos-delay="700">Login</button>
+            <button data-aos="fade-down" data-aos-duration="1000" data-aos-delay="800">Sign up</button>
+        </div>
+    </nav>
     <div class="container">
     <?php if ($booking_success): ?>
     <div class="success-message">
