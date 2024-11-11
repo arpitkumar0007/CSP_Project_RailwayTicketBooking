@@ -91,3 +91,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['captcha'] = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 6);
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNR Status - RailwayYatri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+       <div class="links">
+            <div class="link" data-aos="fade-up" data-aos-duration="1200"><a href="">Home</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100"><a href="booktickets.php">Book Tickets</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200"><a href="findtrains.php">Find Trains</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300"><a href="pnrstatus.php">PNR Status</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400"><a href="feedback.php">Feedback</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="500"><a href="contactus.html">Contact Us</a></div>
+        </div>
+
+    <div class="search-container <?php echo ($search_performed && $booking_details) ? 'hidden' : ''; ?>" data-aos="fade-up" data-aos-duration="1200">
+        <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Check PNR Status</h2>
+        
+        <form class="search-form" method="POST" novalidate>
+            <div class="form-group">
+                <label>Enter PNR Number</label>
+                <input type="text" name="pnr_number" pattern="[0-9]{10}" maxlength="10" required
+                       placeholder="Enter 10-digit PNR number"
+                       value="<?php echo isset($_POST['pnr_number']) ? htmlspecialchars($_POST['pnr_number']) : ''; ?>">
+            </div>
+            <div class="form-group">
+                <label>Enter Captcha</label>
+                <div class="captcha-container">
+                    <div class="captcha-code"><?php echo $_SESSION['captcha']; ?></div>
+                    <input type="text" name="captcha" required placeholder="Enter captcha code">
+                </div>
+            </div>
+            <button type="submit" class="search-btn">Check Status</button>
+        </form>
+    </div>
+
+    <?php if ($search_performed && $booking_details): ?>
+    
+</body>
+</html>
