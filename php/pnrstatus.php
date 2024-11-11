@@ -112,7 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="search-container <?php echo ($search_performed && $booking_details) ? 'hidden' : ''; ?>" data-aos="fade-up" data-aos-duration="1200">
         <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Check PNR Status</h2>
-        
+        <?php if ($error_message): ?>
+            <div class="error-message"><?php echo htmlspecialchars($error_message); ?></div>
+        <?php endif; ?>
         <form class="search-form" method="POST" novalidate>
             <div class="form-group">
                 <label>Enter PNR Number</label>
@@ -194,7 +196,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <a href="pnrstatus.php" class="new-search-btn">Check Another PNR</a>
     </div>
-
+    <?php elseif ($search_performed): ?>
+        <div class="results-container">
+            <div class="booking-card" data-aos="fade-up">
+                <p style="text-align: center; color: #721c24;">No booking found for the provided PNR number.</p>
+            </div>
+            <a href="pnrstatus.php" class="new-search-btn">Try Another Search</a>
+        </div>
+    <?php endif; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
