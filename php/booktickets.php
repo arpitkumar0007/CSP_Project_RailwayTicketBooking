@@ -53,10 +53,12 @@ $search_performed = false;
 $booking_success = false;
 $generated_pnr = "";
 $seat = "";
+
 // Function to generate PNR
 function generatePNR() {
     return mt_rand(1000000000, 9999999999);
 }
+
 // Function to generate seat number
 function generateSeatNumber($class, $berth_preference) {
     // Initialize variables
@@ -231,6 +233,7 @@ if (isset($_POST['book_ticket'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -238,40 +241,15 @@ if (isset($_POST['book_ticket'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Tickets - RailwayYatri</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <link rel="stylesheet" href="./css/booktickets.css">
     <link rel="stylesheet" href="./css/common.css">
+    
 </head>
 <body>
-<nav>
-        <div class="logo" data-aos="fade-down" data-aos-duration="1000">
-            RailwayYatri
-        </div>
-        <div class="links">
-            <a href="./index.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100">Home</a>
-            <a href="booktickets.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Book
-                Tickets</a>
-            <a href="findtrains.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">Find Trains</a>
-            <a href="pnrstatus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400">PNR Status</a>
-            <a href="feedback.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">Feedback</a>
-            <a href="contactus.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Contact Us</a>
-        </div>
-        <div class="buttons">
-            <button data-aos="fade-down" data-aos-duration="1000" data-aos-delay="700">Login</button>
-            <button data-aos="fade-down" data-aos-duration="1000" data-aos-delay="800">Sign up</button>
-        </div>
-    </nav>
     <div class="container">
-    <?php if ($booking_success): ?>
-    <div class="success-message">
-        <h2>Booking Successful!</h2>
-        <div class="booking-details">
-            <p><strong>PNR Number:</strong> <?php echo htmlspecialchars($generated_pnr); ?></p>
-            <p><strong>Coach:</strong> <?php echo htmlspecialchars($generated_seat['coach']); ?></p>
-            <p><strong>Seat Number:</strong> <?php echo htmlspecialchars($generated_seat['berth_type'] . $generated_seat['seat_number']); ?></p>
-        </div>
-    </div>
-<?php endif; ?>
-
+    
         <?php if (!$search_performed && !$booking_success): ?>
             <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Search Trains</h2>
             <form method="POST">
@@ -349,7 +327,7 @@ if (isset($_POST['book_ticket'])) {
     </form>
 </div>
             <?php endforeach; ?>
-            <?php endif; ?>
+        <?php endif; ?>
 
         <?php if (isset($_POST['show_booking_form'])): ?>
             <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Passenger Details</h2>
@@ -419,7 +397,111 @@ if (isset($_POST['book_ticket'])) {
             </form>
         <?php endif; ?>
     </div>
+    <?php if ($booking_success): ?>
+    <div class="container">
+    <div class="success-message">
+        <h2>Booking Successful!</h2>
+        <div class="booking-details" id="ticketDetails">
+            <p><strong>PNR Number:</strong> <?php echo htmlspecialchars($generated_pnr); ?></p>
+            <p><strong>Coach:</strong> <?php echo htmlspecialchars($generated_seat['coach']); ?></p>
+            <p><strong>Seat Number:</strong> <?php echo htmlspecialchars($generated_seat['berth_type'] . $generated_seat['seat_number']); ?></p>
+            
+            <!-- Add hidden fields for PDF generation -->
+            <div id="additionalTicketInfo" style="display: none;">
+                <p><strong>Passenger Name:</strong> <?php echo htmlspecialchars($_POST['passenger_name']); ?></p>
+                <p><strong>Age:</strong> <?php echo htmlspecialchars($_POST['age']); ?></p>
+                <p><strong>Gender:</strong> <?php echo htmlspecialchars($_POST['gender']); ?></p>
+                <p><strong>From:</strong> <?php echo htmlspecialchars($_POST['from_station']); ?></p>
+                <p><strong>To:</strong> <?php echo htmlspecialchars($_POST['to_station']); ?></p>
+                <p><strong>Journey Date:</strong> <?php echo htmlspecialchars($_POST['journey_date']); ?></p>
+                <p><strong>Class:</strong> <?php echo htmlspecialchars($_POST['class']); ?></p>
+                <p><strong>Fare:</strong> ₹<?php echo htmlspecialchars($_POST['fare']); ?></p>
+            </div>
+        </div>
+        <button onclick="generatePDF()" class="btn" style="margin-top: 1rem;">Download Ticket</button>
+    </div>
+    </div>
+    <!-- Add jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+    <script>
+        function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Set font
+    doc.setFont('helvetica');
+
+    // Add header
+    doc.setFontSize(20);
+    doc.setTextColor(30, 60, 114); // #1e3c72
+    doc.text('RailwayYatri E-Ticket', 105, 20, { align: 'center' });
+
+    // Add logo or decorative element
+    doc.setDrawColor(30, 60, 114);
+    doc.setLineWidth(0.5);
+    doc.line(20, 25, 190, 25);
+
+    // Get ticket details
+    const ticketDetails = document.getElementById('ticketDetails');
+    const additionalInfo = document.getElementById('additionalTicketInfo');
+
+    // Set font size for content
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+
+    // Add PNR and basic info
+    doc.setFontSize(14);
+    doc.text('PNR Details', 20, 40);
+    doc.setFontSize(12);
+
+    // Extract text content
+    const pnrElement = ticketDetails.querySelector('p:first-child');
+    const coachElement = ticketDetails.querySelector('p:nth-child(2)');
+    const seatElement = ticketDetails.querySelector('p:nth-child(3)');
+
+    if (pnrElement && coachElement && seatElement) {
+        const pnr = pnrElement.textContent;
+        const coach = coachElement.textContent;
+        const seat = seatElement.textContent;
+
+        // Add main ticket information
+        doc.text(pnr, 20, 50);
+        doc.text(coach, 20, 60);
+        doc.text(seat, 20, 70);
+    }
+
+    // Add separator
+    doc.line(20, 80, 190, 80);
+
+    // Add passenger details
+    doc.setFontSize(14);
+    doc.text('Passenger Details', 20, 95);
+    doc.setFontSize(12);
+
+    // Get additional info
+    const additionalDetails = additionalInfo.getElementsByTagName('p');
+    let yPos = 105;
+
+    for (let detail of additionalDetails) {
+        doc.text(detail.textContent, 20, yPos);
+        yPos += 10;
+    }
+
+    // Add footer
+    doc.setFontSize(10);
+    doc.text('This is a computer generated ticket and does not require signature.', 105, 270, { align: 'center' });
+
+    // Generate PDF name using PNR
+    const pnrNumber = pnrElement ? pnrElement.textContent.split(':')[1].trim() : 'UNKNOWN';
+    const fileName = `ticket_${pnrNumber}.pdf`;
+
+    // Save the PDF
+    doc.save(fileName);
+}
+    </script>
+<?php endif; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({
@@ -471,6 +553,8 @@ if (isset($_POST['book_ticket'])) {
             });
         });
     </script>
+    <script src="./script/login_script.js"></script>
+
 </body>
 </html>
 
