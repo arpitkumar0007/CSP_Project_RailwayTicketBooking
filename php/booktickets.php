@@ -248,7 +248,34 @@ if (isset($_POST['book_ticket'])) {
     
 </head>
 <body>
-    
+    <nav>
+        <div class="logo" data-aos="fade-down" data-aos-duration="1000">
+            RailwayYatri
+        </div>
+        <div class="links">
+            <a href="./index.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100">Home</a>
+            <a href="booktickets.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Book Tickets</a>
+            <a href="findtrains.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">Find Trains</a>
+            <a href="pnrstatus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400">PNR Status</a>
+            <a href="feedback.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">Feedback</a>
+            <a href="contactus.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Contact Us</a>
+        </div>
+        <div class="buttons" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="700">
+            <!-- Auth buttons -->
+            <div id="authButtons">
+                <button onclick="login()" id="loginBtn">Login</button>
+                <button onclick="signup()" id="signupBtn">Sign up</button>
+            </div>
+            <!-- User profile -->
+            <div class="user-profile" id="userProfile">
+                <img id="userPhoto" src="" alt="Profile">
+                <span id="userName"></span>
+                <div class="dropdown-menu">
+                    <button onclick="signOut()">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container">
     
         <?php if (!$search_performed && !$booking_success): ?>
