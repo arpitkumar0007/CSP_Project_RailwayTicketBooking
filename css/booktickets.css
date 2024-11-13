@@ -16,12 +16,12 @@
             background-position: center;
             background-size: cover;
             background-attachment: fixed;
+           
             
         }
 
         .container {
-            width: 80%;
-            max-width: 800px;
+            width: 80vw;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 2rem;
@@ -59,6 +59,8 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            /* margin-left: 4em; */
+            
         }
 
         .btn:hover {
@@ -66,6 +68,8 @@
         }
 
         .train-card {
+            margin-left: 4rem;
+            margin-right: 4rem;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
             padding: 1.5rem;
@@ -82,6 +86,7 @@
 
         .booking-form {
             margin-top: 1rem;
+           
         }
 
         .success-message {
@@ -100,8 +105,4 @@
             margin-top: 2rem;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
+        
