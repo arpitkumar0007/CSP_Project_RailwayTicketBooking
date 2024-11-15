@@ -69,3 +69,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RailwayYatri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="./css/contactus.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="logo" data-aos="fade-down" data-aos-duration="1000">
+            RailwayYatri
+        </div>
+        <div class="links">
+            <a href="./index.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100">Home</a>
+            <a href="booktickets.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Book
+                Tickets</a>
+            <a href="findtrains.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">Find Trains</a>
+            <a href="pnrstatus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400">PNR Status</a>
+            <a href="feedback.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">Feedback</a>
+            <a href="contactus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Contact Us</a>
+        </div>
+        <div class="buttons" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="700">
+            <div id="authButtons">
+                <button onclick="login()" id="loginBtn">Login</button>
+                <button onclick="signup()" id="signupBtn">Sign up</button>
+            </div>
+            <div class="user-profile" id="userProfile">
+                <img id="userPhoto" src="" alt="Profile">
+                <span id="userName"></span>
+                <div class="dropdown-menu">
+                    <button onclick="signOut()">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="contact-container" data-aos="fade-up" data-aos-duration="1200">
+            <h2 class="section-title">Contact Us</h2>
+
+            <?php if ($form_submitted): ?>
+            <div class="success-container">
+                <div class="success-message">
+                    <?php echo $success_message; ?>
+                </div>
+                <div class="checkmark">
+                    ✓
+                </div>
+                <p>
+                    Thank you for contacting us. Our team will respond to your inquiry as soon as possible.
+                </p>
+                <a href="index.html" class="home-button">
+                    Return to Home
+                </a>
+            </div>
+            <?php else: ?>
+            <?php if ($error_message): ?>
+            <div class="error-message">
+                <?php echo $error_message; ?>
+            </div>
+            <?php endif; ?>
+
+            
+            <?php endif; ?>
+        </div>
+    </div>
+
+    
