@@ -45,23 +45,68 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* New Carousel/Slider Styles */
         .packages-container {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            gap: 3rem;
+            position: relative;
+            height: 800px;
+            perspective: 1000px;
         }
 
+        input[type="radio"] {
+            display: none;
+        }
+
+        .cards {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            position: absolute;
+            width: 60%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.8) translateX(-100%);
+        }
+
+        #item-1:checked ~ .cards .card[for="item-1"],
+        #item-2:checked ~ .cards .card[for="item-2"],
+        #item-3:checked ~ .cards .card[for="item-3"] {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+            z-index: 1;
+        }
+
+        #item-1:checked ~ .cards .card[for="item-2"],
+        #item-2:checked ~ .cards .card[for="item-3"],
+        #item-3:checked ~ .cards .card[for="item-1"] {
+            opacity: 0.7;
+            transform: scale(0.8) translateX(100%);
+        }
+
+        #item-1:checked ~ .cards .card[for="item-3"],
+        #item-2:checked ~ .cards .card[for="item-1"],
+        #item-3:checked ~ .cards .card[for="item-2"] {
+            opacity: 0.7;
+            transform: scale(0.8) translateX(-100%);
+        }
+
+        /* Original Card Styles */
         .package-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .package-card:hover {
-            transform: translateY(-5px);
+            height: 100%;
         }
 
         .package-header {
@@ -124,7 +169,7 @@
 
         .destination {
             flex: 0 1 auto;
-            width: 200px;
+            width: 150px;
             text-align: center;
             position: relative;
             z-index: 2;
@@ -132,16 +177,11 @@
 
         .destination img {
             width: 100%;
-            height: 150px;
+            height: 100px;
             border-radius: 10px;
             object-fit: cover;
             margin-bottom: 1rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .destination img:hover {
-            transform: scale(1.05);
         }
 
         .destination-name {
@@ -158,39 +198,12 @@
             margin-top: -50px;
         }
 
-        .arrow::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: -4px;
-            width: 0;
-            height: 0;
-            border-left: 8px solid #1e3c72;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            animation: arrowMove 2s infinite linear;
-        }
-
-        @keyframes arrowMove {
-            0% {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(0);
-            }
-        }
-
         .package-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 2rem;
-            padding-top: 1rem;
+            padding: 2rem;
             border-top: 1px solid #eee;
         }
 
@@ -222,6 +235,26 @@
         }
 
         @media (max-width: 768px) {
+            .packages-container {
+                height: auto;
+                perspective: none;
+            }
+
+            .card {
+                position: relative;
+                width: 100%;
+                margin-bottom: 2rem;
+                opacity: 1;
+                transform: none !important;
+            }
+
+            .cards {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                transform-style: flat;
+            }
+
             .journey-path {
                 flex-direction: column;
                 gap: 2rem;
@@ -243,140 +276,152 @@
 </head>
 <body>
     <div class="links">
-        <div class="link" data-aos="fade-up" data-aos-duration="1200"><a href="">Home</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200"><a href="findtrains.php">Find Trains</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300"><a href="pnrstatus.php">PNR Status</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400"><a href="travelpackages.html">Travel Packages</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="500"><a href="">Contact</a></div>
+        <div class="link" data-aos="fade-up"><a href="">Home</a></div>
+        <div class="link" data-aos="fade-up" data-aos-delay="200"><a href="">Find Trains</a></div>
+        <div class="link" data-aos="fade-up" data-aos-delay="300"><a href="">PNR Status</a></div>
+        <div class="link" data-aos="fade-up" data-aos-delay="400"><a href="">Travel Packages</a></div>
+        <div class="link" data-aos="fade-up" data-aos-delay="500"><a href="">Contact</a></div>
     </div>
 
     <h1 class="page-title" data-aos="fade-up">Discover India with Our Curated Travel Packages</h1>
 
     <div class="packages-container">
-        <!-- Package 1 -->
-        <div class="package-card" data-aos="fade-up">
-            <div class="package-header">
-                <img src="/api/placeholder/1200/400" alt="Golden Triangle Tour" />
-            </div>
-            <div class="package-content">
-                <h2 class="package-title">Golden Triangle Explorer</h2>
-                <p class="package-duration">6 Days / 5 Nights</p>
-                <div class="highlights">
-                    <span class="highlight">🏰 UNESCO Sites</span>
-                    <span class="highlight">🎨 Cultural Tours</span>
-                    <span class="highlight">🍽️ Traditional Cuisine</span>
-                    <span class="highlight">🚂 Train Journey</span>
+        <input type="radio" name="slider" id="item-1" checked>
+        <input type="radio" name="slider" id="item-2">
+        <input type="radio" name="slider" id="item-3">
+        
+        <div class="cards">
+            <!-- Package 1 -->
+            <label class="card" for="item-1">
+                <div class="package-card">
+                    <div class="package-header">
+                        <img src="https://source.unsplash.com/random/1200x400/?india,delhi" alt="Golden Triangle Tour" />
+                    </div>
+                    <div class="package-content">
+                        <h2 class="package-title">Golden Triangle Explorer</h2>
+                        <p class="package-duration">6 Days / 5 Nights</p>
+                        <div class="highlights">
+                            <span class="highlight">🏰 UNESCO Sites</span>
+                            <span class="highlight">🎨 Cultural Tours</span>
+                            <span class="highlight">🍽 Traditional Cuisine</span>
+                            <span class="highlight">🚂 Train Journey</span>
+                        </div>
+                        <div class="journey-path">
+                            <div class="destination">
+                                <img src="https://source.unsplash.com/random/400x320/?delhi" alt="Delhi" />
+                                <div class="destination-name">Delhi</div>
+                                <div>Red Fort & Qutub Minar</div>
+                            </div>
+                            <div class="arrow"></div>
+                            <div class="destination">
+                                <img src="https://source.unsplash.com/random/400x320/?agra" alt="Agra" />
+                                <div class="destination-name">Agra</div>
+                                <div>Taj Mahal & Agra Fort</div>
+                            </div>
+                            <div class="arrow"></div>
+                            <div class="destination">
+                                <img src="https://source.unsplash.com/random/400x320/?jaipur" alt="Jaipur" />
+                                <div class="destination-name">Jaipur</div>
+                                <div>Amber Fort & Hawa Mahal</div>
+                            </div>
+                        </div>
+                        <div class="package-footer">
+                            <div class="price">
+                                ₹24,999 <small>per person</small>
+                            </div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="journey-path">
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Delhi" />
-                        <div class="destination-name">Delhi</div>
-                        <div>Red Fort & Qutub Minar</div>
-                    </div>
-                    <div class="arrow"></div>
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Agra" />
-                        <div class="destination-name">Agra</div>
-                        <div>Taj Mahal & Agra Fort</div>
-                    </div>
-                    <div class="arrow"></div>
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Jaipur" />
-                        <div class="destination-name">Jaipur</div>
-                        <div>Amber Fort & Hawa Mahal</div>
-                    </div>
-                </div>
-                <div class="package-footer">
-                    <div class="price">
-                        ₹24,999 <small>per person</small>
-                    </div>
-                    <button class="book-btn">Book Now</button>
-                </div>
-            </div>
-        </div>
+            </label>
 
-        <!-- Package 2 -->
-        <div class="package-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="package-header">
-                <img src="/api/placeholder/1200/400" alt="Kerala Tour" />
-            </div>
-            <div class="package-content">
-                <h2 class="package-title">Kerala Backwaters Paradise</h2>
-                <p class="package-duration">5 Days / 4 Nights</p>
-                <div class="highlights">
-                    <span class="highlight">🚤 Houseboat Stay</span>
-                    <span class="highlight">🌿 Ayurveda Spa</span>
-                    <span class="highlight">🏖️ Beach Time</span>
-                    <span class="highlight">🌴 Nature Walks</span>
+            <!-- Package 2 -->
+            <label class="card" for="item-2">
+                <div class="package-card">
+                    <div class="package-header">
+                        <img src="/api/placeholder/1200/400" alt="Kerala Tour" />
+                    </div>
+                    <div class="package-content">
+                        <h2 class="package-title">Kerala Backwaters Paradise</h2>
+                        <p class="package-duration">5 Days / 4 Nights</p>
+                        <div class="highlights">
+                            <span class="highlight">🚤 Houseboat Stay</span>
+                            <span class="highlight">🌿 Ayurveda Spa</span>
+                            <span class="highlight">🏖 Beach Time</span>
+                            <span class="highlight">🌴 Nature Walks</span>
+                        </div>
+                        <div class="journey-path">
+                            <div class="destination">
+                                <img src="/api/placeholder/400/320" alt="Kochi" />
+                                <div class="destination-name">Kochi</div>
+                                <div>Chinese Fishing Nets</div>
+                            </div>
+                            <div class="arrow"></div>
+                            <div class="destination">
+                                <img src="/api/placeholder/400/320" alt="Alleppey" />
+                                <div class="destination-name">Alleppey</div>
+                                <div>Backwater Cruise</div>
+                            </div>
+                            <div class="arrow"></div>
+                            <div class="destination">
+                                <img src="/api/placeholder/400/320" alt="Kovalam" />
+                                <div class="destination-name">Kovalam</div>
+                                <div>Beach Resort</div>
+                            </div>
+                        </div>
+                        <div class="package-footer">
+                            <div class="price">
+                                ₹19,999 <small>per person</small>
+                            </div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="journey-path">
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Kochi" />
-                        <div class="destination-name">Kochi</div>
-                        <div>Chinese Fishing Nets</div>
-                    </div>
-                    <div class="arrow"></div>
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Alleppey" />
-                        <div class="destination-name">Alleppey</div>
-                        <div>Backwater Cruise</div>
-                    </div>
-                    <div class="arrow"></div>
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Kovalam" />
-                        <div class="destination-name">Kovalam</div>
-                        <div>Beach Resort</div>
-                    </div>
-                </div>
-                <div class="package-footer">
-                    <div class="price">
-                        ₹19,999 <small>per person</small>
-                    </div>
-                    <button class="book-btn">Book Now</button>
-                </div>
-            </div>
-        </div>
+            </label>
 
-        <!-- Package 3 -->
-        <div class="package-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="package-header">
-                <img src="/api/placeholder/1200/400" alt="Himalayan Tour" />
-            </div>
-            <div class="package-content">
-                <h2 class="package-title">Himalayan Adventure</h2>
-                <p class="package-duration">7 Days / 6 Nights</p>
-                <div class="highlights">
-                    <span class="highlight">🏔️ Mountain Views</span>
-                    <span class="highlight">🛶 River Rafting</span>
-                    <span class="highlight">🏯 Monastery Visit</span>
-                    <span class="highlight">🏕️ Camping</span>
+            <!-- Package 3 -->
+            <label class="card" for="item-3">
+                <div class="package-card">
+                    <div class="package-header">
+                        <img src="/api/placeholder/1200/400" alt="Himalayan Tour" />
+                    </div>
+                    <div class="package-content">
+                        <h2 class="package-title">Himalayan Adventure</h2>
+                        <p class="package-duration">7 Days / 6 Nights</p>
+                        <div class="highlights">
+                            <span class="highlight">🏔 Mountain Views</span>
+                            <span class="highlight">🛶 River Rafting</span>
+                            <span class="highlight">🏯 Monastery Visit</span>
+                            <span class="highlight">🏕 Camping</span>
+                        </div>
+                        <div class="journey-path">
+                            <div class="destination">
+                                <img src="/api/placeholder/400/320" alt="Manali" />
+                                <div class="destination-name">Manali</div>
+                                <div>Hadimba Temple</div>
+                            </div>
+                            <div class="arrow"></div>
+                            <div class="destination">
+                                <img src="/api/placeholder/400/320" alt="Solang Valley" />
+                                <div class="destination-name">Solang Valley</div>
+                                <div>Adventure Sports</div>
+                            </div>
+                            <div class="arrow"></div>
+                            <div class="destination">
+                                <img src="/api/placeholder/400/320" alt="Rohtang Pass" />
+                                <div class="destination-name">Rohtang Pass</div>
+                                <div>Snow Paradise</div>
+                            </div>
+                        </div>
+                        <div class="package-footer">
+                            <div class="price">
+                                ₹29,999 <small>per person</small>
+                            </div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="journey-path">
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Manali" />
-                        <div class="destination-name">Manali</div>
-                        <div>Hadimba Temple</div>
-                    </div>
-                    <div class="arrow"></div>
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Solang Valley" />
-                        <div class="destination-name">Solang Valley</div>
-                        <div>Adventure Sports</div>
-                    </div>
-                    <div class="arrow"></div>
-                    <div class="destination">
-                        <img src="/api/placeholder/400/320" alt="Rohtang Pass" />
-                        <div class="destination-name">Rohtang Pass</div>
-                        <div>Snow Paradise</div>
-                    </div>
-                </div>
-                <div class="package-footer">
-                    <div class="price">
-                        ₹29,999 <small>per person</small>
-                    </div>
-                    <button class="book-btn">Book Now</button>
-                </div>
-            </div>
+            </label>
         </div>
     </div>
 
