@@ -138,9 +138,144 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <?php endif; ?>
 
-            
+            <div class="contact-grid">
+                <div class="contact-form-container">
+                    <form class="contact-form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>
+
+                        ?>">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" name="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-card" data-aos="fade-up" data-aos-duration="1200">
+                        <h3>Our Office</h3>
+                        <p>123 Railway Street</p>
+                        <p>New Delhi, 110001</p>
+                        <p>India</p>
+                    </div>
+
+                    <div class="info-card" data-aos="fade-up" data-aos-duration="1200">
+                        <h3>Contact Information</h3>
+                        <p>Phone: +91 1234567890</p>
+                        <p>Email: info@railwayyatri.com</p>
+                        <p>Working Hours: 24/7</p>
+                    </div>
+
+                    <div class="info-card" data-aos="fade-up" data-aos-duration="1200">
+                        <h3>Connect With Us</h3>
+                        <div class="social-links">
+                            <a href="#">Facebook</a>
+                            <a href="#">Twitter</a>
+                            <a href="#">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php endif; ?>
         </div>
     </div>
 
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="./script/login_script.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
+    <style>
+        .success-container {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .success-message {
+            font-size: 24px;
+            color: #28a745;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .checkmark {
+            font-size: 64px;
+            color: #28a745;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+</body>
+
+</html>
+
+<?php
+$conn->close();
+?>
