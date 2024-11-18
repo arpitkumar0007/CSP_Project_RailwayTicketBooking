@@ -1,4 +1,5 @@
-# RailYatri Project  ![RailYatri Logo](assets/logo.jpg)
+# RailYatri Project  
+<img src="logo.jpg" alt="RailYatri Logo" width="200">
 
 
 ## Project Description
@@ -67,7 +68,7 @@ If not using XAMPP or MAMP, manually install Apache and MySQL and configure them
 ### 3. Configure Database
 - Open phpMyAdmin (usually available at http://localhost/phpmyadmin/), and create a new database for the project (railway_db).
 - Import the SQL file provided in the repo to create tables and populate the database.
-- Database file: [Download File Name](files/railway_db.sql)
+- Database file: [railway_db](railway_db.sql)
 - Run this command to populate the database
   
    ```bash
@@ -120,7 +121,7 @@ If not using XAMPP or MAMP, manually install Apache and MySQL and configure them
 - Seamless redirection ensures smooth user experience across sections.
 
 ## Workflow of the Website
-![Workflow](assets/workflow.png)
+![Workflow](workingOutline.png)
 
 
 
