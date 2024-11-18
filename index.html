@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Common CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon" href="logo.jpg" />
+    <title>RailYatri</title>
+
+
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <nav>
+        <div class="logo" data-aos="fade-down" data-aos-duration="1000">
+            <a href="./index.html">RailYatri</a>
+        </div>
+        <div class="links">
+            <a href="./index.html" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100">Home</a>
+            <a href="booktickets.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Book
+                Tickets</a>
+            <a href="findtrains.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">Find Trains</a>
+            <a href="pnrstatus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400">PNR Status</a>
+            <a href="feedback.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">Feedback</a>
+            <a href="packages.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Travel Packages</a>
+            <a href="contactus.php" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600">Contact Us</a>
+        </div>
+        <div class="buttons" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="700">
+            <!-- Auth buttons -->
+            <div id="authButtons">
+                <button id="loginBtn" onclick="window.location.href='./loginpage.html'">Register</button>
+            </div>
+            <div class="user-profile" id="userProfile">
+                <img id="userPhoto" src="" alt="Profile">
+                <span id="userName"></span>
+                <div class="dropdown-menu">
+                    <button onclick="signOut()">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section>
+        <div class="content">
+            <h1 data-aos="fade-up" data-aos-duration="1200">Your Safe Travel Journey<br>Is Our Main Goal</h1>
+            <p data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">Experience seamless train travel booking
+                with RailwayYatri. Your comfort and safety are our top priorities.</p>
+            <button data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600">
+                <a href="booktickets.php">Book Your Journey</a>
+            </button>
+        </div>
+    </section>
+
+    <script>
+        try {
+            console.log('Initializing AOS...');
+            AOS.init();
+            console.log('AOS initialized');
+        } catch (error) {
+            console.error('AOS initialization error:', error);
+        }
+
+        // Add scroll effect to navbar with error handling
+        window.addEventListener('scroll', function () {
+            try {
+                const nav = document.querySelector('nav');
+                if (!nav) {
+                    console.error('Navigation element not found');
+                    return;
+                }
+
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            } catch (error) {
+                console.error('Error handling scroll event:', error);
+            }
+        });
+
+        console.log('Auth script fully loaded and initialized');
+    </script>
+    <script src="./script/login_script.js"></script>
+
+
+</body>
+
+</html>

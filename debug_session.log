@@ -1,0 +1,9 @@
+[2024-11-16 16:19:08] Received Raw Data: {"user_id":"IUT6MXLO6pRZpgIV98kmfnkgp4H3","email":"arpitk@iitbhilai.ac.in","name":"ARPIT KUMAR"}
+[2024-11-16 16:19:08] Decoded Data: Array
+(
+    [user_id] => IUT6MXLO6pRZpgIV98kmfnkgp4H3
+    [email] => arpitk@iitbhilai.ac.in
+    [name] => ARPIT KUMAR
+)
+
+[2024-11-16 16:19:08] Session set for user: arpitk@iitbhilai.ac.in

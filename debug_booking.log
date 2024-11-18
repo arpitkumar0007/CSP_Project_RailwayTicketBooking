@@ -1,0 +1,109 @@
+[2024-11-16 16:17:20] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:17:20] GET Redirect: Not Set
+[2024-11-16 16:17:30] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:17:30] GET Redirect: Not Set
+[2024-11-16 16:17:31] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:17:31] GET Redirect: Not Set
+[2024-11-16 16:18:56] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:18:56] GET Redirect: Not Set
+[2024-11-16 16:18:58] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:18:58] GET Redirect: Not Set
+[2024-11-16 16:19:06] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:19:06] GET Redirect: Not Set
+[2024-11-16 16:22:47] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:22:47] GET Redirect: Not Set
+[2024-11-16 16:22:56] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:22:56] GET Redirect: Not Set
+[2024-11-16 16:22:58] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:22:58] GET Redirect: Not Set
+[2024-11-16 16:23:10] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:23:10] GET Redirect: Not Set
+[2024-11-16 16:29:04] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:29:04] GET Redirect: Not Set
+[2024-11-16 16:29:13] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:29:13] GET Redirect: Not Set
+[2024-11-16 16:29:15] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:29:15] GET Redirect: Not Set
+[2024-11-16 16:32:57] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:32:57] GET Redirect: Not Set
+[2024-11-16 16:33:06] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:33:06] GET Redirect: Not Set
+[2024-11-16 16:33:08] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:33:08] GET Redirect: Not Set
+[2024-11-16 16:38:41] Session User ID: Not Set
+[2024-11-16 16:38:41] POST Data: Array
+(
+)
+
+[2024-11-16 16:38:41] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:38:41] GET Redirect: Not Set
+[2024-11-16 16:38:49] Session User ID: Not Set
+[2024-11-16 16:38:49] POST Data: Array
+(
+    [from_station] => Mumbai Central
+    [to_station] => Delhi Junction
+    [journey_date] => 2024-12-05
+    [class] => 1A
+    [search_trains] => 
+)
+
+[2024-11-16 16:38:49] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:38:49] GET Redirect: Not Set
+[2024-11-16 16:38:51] Session User ID: Not Set
+[2024-11-16 16:38:51] POST Data: Array
+(
+    [train_number] => 12952
+    [from_station] => Mumbai Central
+    [to_station] => Delhi Junction
+    [journey_date] => 2024-12-05
+    [class] => 1A
+    [fare] => 3000.00
+    [show_booking_form] => 
+)
+
+[2024-11-16 16:38:51] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:38:51] GET Redirect: Not Set
+[2024-11-16 16:39:06] Session User ID: Not Set
+[2024-11-16 16:39:06] POST Data: Array
+(
+    [train_number] => 12952
+    [from_station] => Mumbai Central
+    [to_station] => Delhi Junction
+    [journey_date] => 2024-12-05
+    [class] => 1A
+    [fare] => 3000.00
+    [passenger_name] => Array
+        (
+            [0] => Arpit kumar
+        )
+
+    [age] => Array
+        (
+            [0] => 20
+        )
+
+    [gender] => Array
+        (
+            [0] => Male
+        )
+
+    [berth_preference] => Array
+        (
+            [0] => Lower
+        )
+
+    [document_type] => Array
+        (
+            [0] => Aadhar
+        )
+
+    [document_number] => Array
+        (
+            [0] => 2341242321
+        )
+
+    [book_ticket] => 
+)
+
+[2024-11-16 16:39:06] Session User ID: IUT6MXLO6pRZpgIV98kmfnkgp4H3
+[2024-11-16 16:39:06] GET Redirect: Not Set

@@ -1,0 +1,260 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("img.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 200px;
+}
+
+.page-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.packages-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  height: 800px;
+  perspective: 1000px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.cards {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8) translateX(-100%);
+}
+
+#item-1:checked ~ .cards .card[for="item-1"],
+#item-2:checked ~ .cards .card[for="item-2"],
+#item-3:checked ~ .cards .card[for="item-3"] {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  z-index: 1;
+}
+
+#item-1:checked ~ .cards .card[for="item-2"],
+#item-2:checked ~ .cards .card[for="item-3"],
+#item-3:checked ~ .cards .card[for="item-1"] {
+  opacity: 0.7;
+  transform: scale(0.8) translateX(100%);
+}
+
+#item-1:checked ~ .cards .card[for="item-3"],
+#item-2:checked ~ .cards .card[for="item-1"],
+#item-3:checked ~ .cards .card[for="item-2"] {
+  opacity: 0.7;
+  transform: scale(0.8) translateX(-100%);
+}
+
+/* Original Card Styles */
+.package-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  height: 100%;
+}
+
+.package-header {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.package-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.package-header:hover img {
+  transform: scale(1.1);
+}
+
+.package-content {
+  padding: 2rem;
+}
+
+.package-title {
+  font-size: 1.8rem;
+  color: #1e3c72;
+  margin-bottom: 1rem;
+}
+
+.package-duration {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.highlights {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.highlight {
+  background: #e3f2fd;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #1e3c72;
+}
+
+.journey-path {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  position: relative;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.destination {
+  flex: 0 1 auto;
+  width: 150px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.destination img {
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.destination-name {
+  font-weight: bold;
+  color: #1e3c72;
+  margin-bottom: 0.5rem;
+}
+
+.arrow {
+  flex: 0 0 50px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    #1e3c72,
+    #1e3c72 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  position: relative;
+  margin-top: -50px;
+}
+
+.package-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -3rem;
+  padding: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.price {
+  font-size: 1.8rem;
+  color: #1e3c72;
+  font-weight: bold;
+}
+
+.price small {
+  font-size: 1rem;
+  color: #666;
+}
+
+.book-btn {
+  background: #3498db;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+  background: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .packages-container {
+    height: auto;
+    perspective: none;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    margin-bottom: 2rem;
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transform-style: flat;
+  }
+
+  .journey-path {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .arrow {
+    width: 2px;
+    height: 40px;
+    transform: rotate(90deg);
+    margin: 0;
+  }
+
+  .destination {
+    width: 100%;
+    max-width: 300px;
+  }
+}
